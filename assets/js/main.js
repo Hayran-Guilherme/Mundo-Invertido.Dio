@@ -1,3 +1,4 @@
+import { subscribeToHellfireClub } from './hellfire-clube.js'
 
 const txtName = document.getElementById('txtName')
 const txtEmail = document.getElementById('txtEmail')
@@ -6,6 +7,21 @@ const txtCharacter = document.getElementById('txtCharacter')
 
 const btnSubscribe = document.getElementById('btnSubscribe')
 
-btnSubscribe.addEventListener('submit' , () => {
-    console.log('Passou por aqui')
+btnSubscribe.addEventListener('click' , async () => {
+    const subscription = {
+        name: txtName.value,
+        email: txtEmail.value,
+        level: txtLevel.value,
+        character: txtCharacter.value
+    }
+
+    //Salvar no banco de dados
+    const subscriptionId = await subscribeToHellfireClub(subscription)
+
+    txtName.value = ''
+    txtEmail.value = ''
+    txtLevel.value = ''
+    txtCharacter.value = ''
+
+    alert(`Inscrito com sucesso: ${subscription}`)
 })
